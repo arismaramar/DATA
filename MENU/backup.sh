@@ -41,26 +41,11 @@ cp -r /etc/gshadow /root/backup/gshadow &> /dev/null
 cp -r /usr/local/etc/xray /root/backup/xray
 cd /root
 zip -rP $InputPass $NOIP.zip backup > /dev/null 2>&1
-LLatest=`date`
-Get_Data () {
-git clone https://github.com/jinggovpn/BACKUP-DB.git /root/user-backup/ &> /dev/null
-}
 
-Mkdir_Data () {
 mkdir -p /root/user-backup/$NM
-}
 
-Input_Data_Append () {
-if [ ! -f "/root/user-backup/$NOIP/$NOIP-last-backup" ]; then
-touch /root/user-backup/$NM/$NOIP-last-backup
-fi
-echo -e "User         : $NM
-last-backup : $LLatest
-" >> /root/user-backup/$NM/$NOIP-last-backup
 mv /root/$NOIP.zip /root/user-backup/$NM/
-}
 
-Save_And_Exit () {
     cd /root/user-backup
     git config --global user.email "jinggovpn@gmail.com" &> /dev/null
     git config --global user.name "jinggovpn" &> /dev/null
@@ -71,20 +56,7 @@ Save_And_Exit () {
     git branch -M main &> /dev/null
     git remote add origin https://github.com/jinggovpn/BACKUP-DB
     git push -f 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@github.com/jinggovpn/BACKUP-DB.git &> /dev/null
-}
 
-if [ ! -d "/root/user-backup/" ]; then
-sleep 1
-echo -e "[ ${green}INFO${NC} ] Getting database . . . "
-Get_Data
-Mkdir_Data
-sleep 1
-echo -e "[ ${green}INFO${NC} ] Getting info server . . . "
-Input_Data_Append
-sleep 1
-echo -e "[ ${green}INFO${NC} ] Processing updating server . . . "
-Save_And_Exit
-fi
 link="https://raw.githubusercontent.com/jinggovpn/BACKUP-DB/main/$NM/$NOIP.zip"
 sleep 1
 clear
