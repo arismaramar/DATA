@@ -98,7 +98,7 @@ echo -e "============================================="
 echo -e " ${green} INSTALLING TOOLS${NC} "
 echo -e "============================================="
 sleep 2
-wget https://raw.githubusercontent.com/JinGGoVPN/DATA/main/XRAY/SLITE/tools.sh && chmod +x tools..sh && screen -S tools ./tools.sh
+wget https://raw.githubusercontent.com/JinGGoVPN/DATA/main/XRAY/SLITE/tools.sh && chmod +x tools.sh && screen -S tools ./tools.sh
 sleep 2
 clear
 
