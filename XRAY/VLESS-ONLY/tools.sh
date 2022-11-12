@@ -124,6 +124,10 @@ sed -i 's/AcceptEnv/#AcceptEnv/g' /etc/ssh/sshd_config
 # // install Fix
 apt-get --reinstall --fix-missing install -y linux-headers-cloud-amd64 bzip2 gzip coreutils wget jq screen rsyslog iftop htop net-tools zip unzip wget net-tools curl nano sed screen gnupg gnupg1 bc apt-transport-https build-essential dirmngr libxml-parser-perl git lsof
 
+# / / Make Main Directory
+mkdir -p /usr/local/etc/xray/
+touch /usr/local/etc/xray/vless.txt
+
 # // Nginx
 apt -y install nginx
 cd
