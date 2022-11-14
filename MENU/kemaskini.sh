@@ -10,7 +10,7 @@ rm -f /usr/local/bin/menu
 cd /usr/local/bin
 wget -O trial "https://raw.githubusercontent.com/jinggovpn/DATA/main/SSHOVPN/trial.sh" && chmod +x trial
 wget -O usernew "https://raw.githubusercontent.com/jinggovpn/DATA/main/SSHOVPN/usernew.sh" && chmod +x usernew
-wget -O menu "https://raw.githubusercontent.com/jinggovpn/DATA/main/SSHOVPN/menu.sh" && chmod +x menu
+wget -O menu "https://raw.githubusercontent.com/jinggovpn/DATA/main/MENU/menu.sh" && chmod +x menu
 
 cd
 clear
