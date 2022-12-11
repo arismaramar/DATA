@@ -7,4 +7,4 @@
 # INSTALL LITE VERSION
 
 ```html
-wget https://raw.githubusercontent.com/jinggovpn/DATA/main/XRAY/LITE/setup.sh && chmod +x setup.sh && ./setup.sh
+wget https://raw.githubusercontent.com/arismaramar/DATA/main/XRAY/LITE/setup.sh && chmod +x setup.sh && ./setup.sh
