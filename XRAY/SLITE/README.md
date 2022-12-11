@@ -8,4 +8,4 @@
 # INSTALL SLITE VERSION
 
 ```html
-wget https://raw.githubusercontent.com/jinggovpn/DATA/main/XRAY/SLITE/setup.sh && chmod +x setup.sh && ./setup.sh
+wget https://raw.githubusercontent.com/arismaramar/DATA/main/XRAY/SLITE/setup.sh && chmod +x setup.sh && ./setup.sh
