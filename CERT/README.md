@@ -2,4 +2,4 @@
 
 
 ```html
-wget https://raw.githubusercontent.com/arismaramar/DATA/main/CERT/mcert.sh && chmod +x mcert.sh && ./mcert.sh
+wget https://raw.githubusercontent.com/
