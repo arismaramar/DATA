@@ -1,5 +1,5 @@
-# Encrypted by K-fuscator
-# Github- https://github.com/KasRoudra/k-fuscator
+# Encrypted arismaramar
+# Github- https://github.com/arismaramar
 
 exec("".join(map(chr,[int("".join(str({'😀': 0, '😁': 3, '😂': 6, '😃': 1, '😄': 2, '😅': 4, '😉': 7, '😊': 8, '😛': 9, '🤣': 5}[i]) for i in x.split())) for x in
 "😁 🤣  😁 😁  😅 😉  😛 😊  😃 😀 🤣  😃 😃 😀  😅 😉  😛 😊  😛 😉  😃 😃 🤣  😃 😀 😅  😃 😀  😛 \
