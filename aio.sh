@@ -2,8 +2,6 @@
 clear
 echo "# //===================================================="
 echo "# //	System Request:Debian 9+/Ubuntu 18.04+/20.04"
-echo "# //	Author:	main dev bhoikfostyahya anggun sc aio"
-echo "# //	Dscription: Xray Menu Management"
 echo "# //	email: arismar.amar@gmail.com"
 echo "# //      telegram: https://t.me/amantubilah"
 echo "# //===================================================="
@@ -70,7 +68,7 @@ function is_root() {
 }
 judge() {
     if [[ 0 -eq $? ]]; then
-        print_ok "$1 Complete... | thx to ${YELLOW} main  anggun ${FONT}"
+        print_ok "$1 Complete... | thx to ${YELLOW}ANGGUN${FONT}"
         sleep 1
     fi
 }
@@ -83,44 +81,7 @@ TIMEDATE() {
     else
         res="Permission Accepted..."
     fi
-	
 }
-domain="cat /etc/xray/domain"
-cloudflare() {
-    DOMEN="remoot.my.id"
-    sub=$(tr </dev/urandom -dc a-z0-9 | head -c2)
-    domain="vpn-${sub}.remoot.my.id"
-    echo -e "${domain}" >/etc/xray/domain
-    CF_ID="arismar.amar@gmail.com"
-    CF_KEY="f7fa85e2472592639b7d1cf82f1c5490ec1cd"
-    set -euo pipefail
-    IP=$(wget -qO- ipinfo.io/ip)
-    print_ok "Updating DNS for ${GRAY}${domain}${FONT}"
-    ZONE=$(curl -sLX GET "https://api.cloudflare.com/client/v4/zones?name=${DOMEN}&status=active" \
-        -H "X-Auth-Email: ${CF_ID}" \
-        -H "X-Auth-Key: ${CF_KEY}" \
-    -H "Content-Type: application/json" | jq -r .result[0].id)
-    
-    RECORD=$(curl -sLX GET "https://api.cloudflare.com/client/v4/zones/${ZONE}/dns_records?name=${domain}" \
-        -H "X-Auth-Email: ${CF_ID}" \
-        -H "X-Auth-Key: ${CF_KEY}" \
-    -H "Content-Type: application/json" | jq -r .result[0].id)
-    
-    if [[ "${#RECORD}" -le 10 ]]; then
-        RECORD=$(curl -sLX POST "https://api.cloudflare.com/client/v4/zones/${ZONE}/dns_records" \
-            -H "X-Auth-Email: ${CF_ID}" \
-            -H "X-Auth-Key: ${CF_KEY}" \
-            -H "Content-Type: application/json" \
-        --data '{"type":"A","name":"'${domain}'","content":"'${IP}'","proxied":false}' | jq -r .result.id)
-    fi
-    
-    RESULT=$(curl -sLX PUT "https://api.cloudflare.com/client/v4/zones/${ZONE}/dns_records/${RECORD}" \
-        -H "X-Auth-Email: ${CF_ID}" \
-        -H "X-Auth-Key: ${CF_KEY}" \
-        -H "Content-Type: application/json" \
-    --data '{"type":"A","name":"'${domain}'","content":"'${IP}'","proxied":false}')
-}
-
 function nginx_install() {
     apt clean all && apt update
     apt install curl socat xz-utils wget apt-transport-https gnupg gnupg2 gnupg1 dnsutils lsb-release -y
@@ -129,7 +90,7 @@ function nginx_install() {
     apt -y install chrony
     apt install zip -y
     apt install nginx curl pwgen openssl netcat cron -y
-   
+    ufw disable
     # // Checking System
     if [[ $(cat /etc/os-release | grep -w ID | head -n1 | sed 's/=//g' | sed 's/"//g' | sed 's/ID//g') == "ubuntu" ]]; then
         judge "Setup nginx For OS Is $(cat /etc/os-release | grep -w PRETTY_NAME | head -n1 | sed 's/=//g' | sed 's/"//g' | sed 's/PRETTY_NAME//g')"
@@ -149,6 +110,7 @@ function nginx_install() {
     fi
         apt-get purge apache2 -y
         apt-get autoremove -y
+		source <(curl -sL ${GITHUB_CMD}main/fodder/bbrplus.sh)
 }
 function LOGO() {
     echo -e "
@@ -159,7 +121,7 @@ function LOGO() {
  ───│    $Green┴ ┴└─┘ ┴ └─┘└─┘└─┘┴└─┴┴   ┴   ┴─┘┴ ┴ └─┘$NC   │───
     │    ${YELLOW}Copyright${FONT} (C)$GRAY https://t.me/amantubilah$NC   │
     └───────────────────────────────────────────────┘
-         ${RED}Autoscript xray vpn aio (multi port)${FONT}    
+         ${RED}Autoscript xray vpn lite (multi port)${FONT}    
 ${RED}Make sure the internet is smooth when installing the script${FONT}
         "
 
@@ -228,7 +190,7 @@ EOF
 function download_config() {
     cd
     rm -rf *
-    curl https://raw.githubusercontent.com/xxxserxxx/gotop/master/scripts/download.sh | bash && chmod +x gotop && sudo mv gotop /usr/local/bin/
+    source <(curl -sL  https://raw.githubusercontent.com/xxxserxxx/gotop/master/scripts/download.sh)
     wget -O /usr/bin/speedtest "${GITHUB_CMD}main/fodder/speedtest" >/dev/null 2>&1
     wget -O /etc/haproxy/haproxy.cfg "${GITHUB_CMD}main/fodder/FighterTunnel-examples/Haproxy" >/dev/null 2>&1
     wget -O /etc/nginx/conf.d/xray.conf "${GITHUB_CMD}main/fodder/nginx/xray.conf" >/dev/null 2>&1
@@ -237,7 +199,7 @@ function download_config() {
 	source <(curl -sL ${GITHUB_CMD}main/fodder/nginx/sed)
     chmod +x /usr/bin/speedtest
     sed -i -e 's/\r$//' *
-    mv * /usr/bin/
+    
 
     cat >/root/.profile <<END
 # ~/.profile: executed by Bourne-compatible login shells.
@@ -317,7 +279,7 @@ END
     fi
 }
 FIGHTERTUNNEL() {
-    curl -sS https://raw.githubusercontent.com/arismaramar/permission/main/ip >/root/tmp
+    curl -sS https://raw.githubusercontent.com/arismaramar/permission/main/ip>/root/tmp
     data=($(cat /root/tmp | grep -E "^### " | awk '{print $2}'))
     for user in "${data[@]}"; do
         exp=($(grep -E "^### $user" "/root/tmp" | awk '{print $3}'))
@@ -349,20 +311,18 @@ function acme() {
 
 }
 function configure_nginx() {
-    # // nginx config |     ANGGUN SC AIO
-    cd
+    # // nginx config | SC ANGGUN
+    cd /var/www/html
     rm /var/www/html/*.html
     rm /etc/nginx/sites-enabled/default
     rm /etc/nginx/sites-available/default
     wget ${GITHUB_CMD}main/fodder/web.zip >/dev/null 2>&1
     unzip -x web.zip
-    rm -f web.zip
-    mv * /var/www/html/
     judge "Nginx configuration modification"
 }
 ftTunneling() {
     MYIP=$(curl -sS ipv4.icanhazip.com)
-    IZIN=$(curl -sS https://raw.githubusercontent.com/arismaramar/permission/main/ip| awk '{print $4}' | grep $MYIP)
+    IZIN=$(curl -sS https://raw.githubusercontent.com/arismaramar/permission/main/ip | awk '{print $4}' | grep $MYIP)
     if [ "$MYIP" = "$IZIN" ]; then
         TIMEDATE
     else
@@ -482,20 +442,16 @@ function dependency_install() {
     echo "Please wait to install Package..."
     apt-get update
     judge "Update configuration"
-		
-    judge "Installed openvpn easy-rsa"
-    source <(curl -sL ${GITHUB_CMD}main/fodder/openvpn/openvpn)		
-    source <(curl -sL ${GITHUB_CMD}main/BadVPN-UDPWG/ins-badvpn)
 
+    judge "Installed openvpn easy-rsa"
+    source <(curl -sL ${GITHUB_CMD}main/fodder/openvpn/openvpn)
+    
     judge "Installed itil vpn"
     wget -O /etc/pam.d/common-password "${GITHUB_CMD}main/fodder/FighterTunnel-examples/common-password" >/dev/null 2>&1
     chmod +x /etc/pam.d/common-password
-	
     source <(curl -sL ${GITHUB_CMD}main/fodder/openvpn/openvpn)
-	judge "Installed dropbear"
-    apt-get install dropbear -y
-	source <(curl -sL ${GITHUB_CMD}main/fodder/bbrplus.sh)
-	
+	source <(curl -sL ${GITHUB_CMD}main/BadVPN-UDPWG/ins-badvpn)
+
     DEBIAN_FRONTEND=noninteractive dpkg-reconfigure keyboard-configuration
     debconf-set-selections <<<"keyboard-configuration keyboard-configuration/altgr select The default for the keyboard layout"
     debconf-set-selections <<<"keyboard-configuration keyboard-configuration/compose select No compose key"
@@ -515,7 +471,9 @@ function dependency_install() {
     debconf-set-selections <<<"keyboard-configuration keyboard-configuration/variantcode string "
     debconf-set-selections <<<"keyboard-configuration keyboard-configuration/variant select English"
     debconf-set-selections <<<"keyboard-configuration keyboard-configuration/xkb-keymap select "
-    
+    judge "Installed dropbear"
+    apt-get install dropbear -y
+
 }
 function install_sc() {
     dependency_install
@@ -526,7 +484,7 @@ function install_sc() {
     install_xray
     restart_system
 }
-function domain_add() {
+function add_domain() {
     read -p "Input Domain :  " domain
     echo $domain >/etc/xray/domain
 
@@ -565,59 +523,23 @@ apete_eee() {
         exit 0
     fi
 }
-
-function install_sc() {
-    make_folder_xray
-    domain_add
-    dependency_install
-    acme
-    nginx_install
-    configure_nginx
-    download_config    
-    install_xray
-    restart_system
-}
-
-
-function install_sc_cf() {
-    make_folder_xray
-    dependency_install
-    cloudflare
-    acme
-    nginx_install
-    configure_nginx    
-    download_config
-    install_xray
-    restart_system
-}
+apete_eee
 clear
-
-
-    MYIP=$(curl -sS ipv4.icanhazip.com)
-    IZIN=$(curl -sS https://raw.githubusercontent.com/arismaramar/permission/main/ip| awk '{print $4}' | grep $MYIP)
-    if [ "$MYIP" = "$IZIN" ]; then
-        TIMEDATE
-    else
-        res="Permission Denied!"
-    fi
- 
 LOGO
-echo -e "${RED}JANGAN INSTALL SCRIPT INI MENGGUNAKAN KONEKSI VPN!!!${FONT}"
-echo -e "${YELLOW}CONTOH SSH WS SILAHKAN DI BAWA BUG.MU/FIGHTERTUNNEL${FONT}"
+echo -e "${RED}PASTIKAN IP VPS STATIC JANGAN DYNAMIC!!!${FONT}"
 echo -e ""
-echo -e "1).${Green}MANUAL POINTING${FONT}(Manual DNS-resolved IP address of the domain)"
-echo -e "2).${Green}AUTO POINTING${FONT}(Auto DNS-resolved IP address of the domain)"
-read -p "between auto pointing / manual pointing what do you choose[ 1 - 2 ] : " menu_num
+echo -e "${Green}DNS POINTING${FONT}(DNS-resolved IP address of the domain)"
+echo ""
+read -p "Lanjutkan untuk menginstall y/n : " menu_num
 
 case $menu_num in
-    1)
-        install_sc
+y)
+    make_folder_xray
+    add_domain
+    install_sc
     ;;
-    2)
-        install_sc_cf
-    ;;
-    *)
-        echo -e "${RED}You wrong command !${FONT}"
+*)
+    echo -e "${RED}You wrong command !${FONT}"
     ;;
 esac
 
