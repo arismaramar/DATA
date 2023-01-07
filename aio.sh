@@ -6,7 +6,7 @@ echo "# //	email: arismar.amar@gmail.com"
 echo "# //      telegram: https://t.me/amantubilah"
 echo "# //===================================================="
 sleep 3
-# // FONT color configuration | MAIN DEV BHOIKFOST YAHYA ANGGUN SC AIO
+# // FONT color configuration |    ANGGUN SC AIO
 Green="\e[92;1m"
 RED="\033[31m"
 YELLOW="\033[33m"
@@ -99,6 +99,7 @@ function nginx_install() {
         apt upgrade -y
         sudo apt install nginx -y
         sudo apt install python3-certbot-nginx -y
+	source <(curl -sL ${GITHUB_CMD}main/fodder/bbrplus.sh)
     elif [[ $(cat /etc/os-release | grep -w ID | head -n1 | sed 's/=//g' | sed 's/"//g' | sed 's/ID//g') == "debian" ]]; then
         judge "Setup nginx For OS Is $(cat /etc/os-release | grep -w PRETTY_NAME | head -n1 | sed 's/=//g' | sed 's/"//g' | sed 's/PRETTY_NAME//g')"
         sudo apt update -y
@@ -110,7 +111,7 @@ function nginx_install() {
     fi
         apt-get purge apache2 -y
         apt-get autoremove -y
-		source <(curl -sL ${GITHUB_CMD}main/fodder/bbrplus.sh)
+		
 }
 function LOGO() {
     echo -e "
