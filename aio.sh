@@ -99,12 +99,13 @@ function nginx_install() {
         apt upgrade -y
         sudo apt install nginx -y
         sudo apt install python3-certbot-nginx -y
-	source <(curl -sL ${GITHUB_CMD}main/fodder/bbrplus.sh)
+	
     elif [[ $(cat /etc/os-release | grep -w ID | head -n1 | sed 's/=//g' | sed 's/"//g' | sed 's/ID//g') == "debian" ]]; then
         judge "Setup nginx For OS Is $(cat /etc/os-release | grep -w PRETTY_NAME | head -n1 | sed 's/=//g' | sed 's/"//g' | sed 's/PRETTY_NAME//g')"
         sudo apt update -y
 	apt upgrade -y
         apt-get install nginx -y
+	source <(curl -sL ${GITHUB_CMD}main/fodder/bbrplus.sh)
     else
         echo -e "${RED} Your OS Is Not Supported ( ${YELLOW}$(cat /etc/os-release | grep -w PRETTY_NAME | head -n1 | sed 's/=//g' | sed 's/"//g' | sed 's/PRETTY_NAME//g')${NC} )"
         exit 1
